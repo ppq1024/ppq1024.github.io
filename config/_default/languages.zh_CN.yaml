@@ -1,0 +1,24 @@
+languageCode: zh_CN
+languageName: 中文-中国大陆
+title: 澪铱的异世界小屋
+params:
+  author: 澪铱
+  description: 有没有可能，这边对我来说才是异世界？
+menu:
+  main:
+    - name: 主页
+      identifier: home
+      url: /
+      weight: 1
+    - name: 标签
+      identifier: tags
+      url: /tags/
+      weight: 2
+    - name: 关于
+      identifier: about
+      url: /about/
+      weight: 3
+    - name: 链接
+      identifier: links
+      url: /links/
+      weight: 4

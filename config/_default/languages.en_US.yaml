@@ -1,0 +1,25 @@
+languageCode: en_US
+languageName: English-US
+defaultContentLanguageInSubdir: true
+title: IRID's Otherworld Hut
+params:
+  author: IRID
+  description: Here is an otherworld for me.
+menu:
+  main:
+    - name: Home
+      identifier: home
+      url: /en_US/
+      weight: 1
+    - name: Tags
+      identifier: tags
+      url: /en_US/tags/
+      weight: 2
+    - name: About
+      identifier: about
+      url: /en_US/about/
+      weight: 3
+    - name: Links
+      identifier: links
+      url: /en_US/links/
+      weight: 4
