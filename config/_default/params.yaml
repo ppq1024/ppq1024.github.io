@@ -9,5 +9,4 @@ gitalk:
   clientID: Ov23li2Zw0KTzG3sZ7XW
   repo: ppq1024.github.io
   owner: ppq1024
-  admin:
-    - ppq1024
+  admin: ppq1024
