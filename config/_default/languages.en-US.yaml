@@ -1,4 +1,4 @@
-languageCode: en_US
+languageCode: en-US
 languageName: English-US
 defaultContentLanguageInSubdir: true
 title: IRID's Otherworld Hut
@@ -9,17 +9,17 @@ menu:
   main:
     - name: Home
       identifier: home
-      url: /en_US/
+      url: /en-US/
       weight: 1
     - name: Tags
       identifier: tags
-      url: /en_US/tags/
+      url: /en-US/tags/
       weight: 2
     - name: About
       identifier: about
-      url: /en_US/about/
+      url: /en-US/about/
       weight: 3
     - name: Links
       identifier: links
-      url: /en_US/links/
+      url: /en-US/links/
       weight: 4

@@ -1,6 +1,8 @@
 ---
 date: 2025-07-30
-title: 施工中
+update: 2025-07-31
+name: notice
+title: 施工中 - Notice-0
 draft: false
 tags:
     - notice

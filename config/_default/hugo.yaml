@@ -1,4 +1,3 @@
 baseURL: https://blog.yuime.moe/
 theme: m10c
-defaultContentLanguage: zh_CN
-
+defaultContentLanguage: zh-CN

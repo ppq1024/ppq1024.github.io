@@ -1,6 +1,8 @@
 ---
 date: 2025-07-30
-title: Constucting
+update: 2025-07-31
+name: notice
+title: Constructing - Notice-0
 draft: false
 tags:
     - notice
