@@ -1,0 +1,22 @@
+{{ if not (.Page.Scratch.Get "linkListCount") }}
+<style>
+    .link-list {
+        padding: 0;
+        list-style-type: none;
+    }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", event => {
+        var lists = document.querySelectorAll(".link-list");
+        lists.forEach(list => {
+            for (var i = list.children.length; i >= 0; i --) {
+                list.appendChild(list.children[Math.random() * i | 0])
+            }
+        });
+    });
+</script>
+{{ end }}
+<ul class="link-list">
+    {{ .Inner }}
+</ul>
+{{ .Page.Scratch.Add "linkListCount" 1 }}

@@ -1,3 +1,44 @@
 baseURL: https://blog.yuime.moe/
 theme: m10c
 defaultContentLanguage: zh-CN
+title: siteTitle
+menu:
+  main:
+    - name: home
+      identifier: home
+      url: /
+      weight: 1
+    - name: tags
+      identifier: tags
+      url: /tags/
+      weight: 2
+    - name: ablout
+      identifier: about
+      url: /about/
+      weight: 3
+    - name: links
+      identifier: links
+      url: /links/
+      weight: 4
+params:
+  author: siteAuthor
+  description: siteDescription
+  social:
+    - name: Github
+      icon: github
+      url: https://github.com/ppq1024
+    - name: E-mail
+      icon: mail
+      url: mailto:ppq0x0400@outlook.com
+  gitalk:
+    clientID: Ov23li2Zw0KTzG3sZ7XW
+    repo: ppq1024.github.io
+    owner: ppq1024
+    admin: ppq1024
+languages:
+  zh-CN:
+    languageCode: zh-CN
+    languageName: 中文-中国大陆
+  en-US:
+    languageCode: en-US
+    languageName: English-US
