@@ -1,7 +1,7 @@
 ---
-date: 2025-08-02
+date: 2025-08-01
 update: 2025-08-02
-name: all-of-begining
+name: all-of-beginning
 title: 万恶之源 - Minecraft 联机中的网络问题
 draft: False
 tags:
