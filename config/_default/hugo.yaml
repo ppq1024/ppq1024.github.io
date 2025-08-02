@@ -2,6 +2,7 @@ baseURL: https://blog.yuime.moe/
 theme: m10c
 defaultContentLanguage: zh-CN
 title: siteTitle
+timeZone: Asia/Shanghai
 menu:
   main:
     - name: home
@@ -23,6 +24,7 @@ menu:
 params:
   author: siteAuthor
   description: siteDescription
+  avatar: images/avatar.webp
   social:
     - name: Github
       icon: github
