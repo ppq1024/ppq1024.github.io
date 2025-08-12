@@ -44,3 +44,15 @@ languages:
   en-US:
     languageCode: en-US
     languageName: English-US
+markup:
+  goldmark:
+    extensions:
+      passthrough:
+        delimiters:
+          block:
+          - - $$
+            - $$
+          inline:
+          - - $
+            - $
+        enable: true
