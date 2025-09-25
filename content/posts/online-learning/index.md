@@ -1,6 +1,6 @@
 ---
 date: 2025-08-12
-update: 2025-08-12
+update: 2025-09-25
 name: online-learning
 title: 在线学习与 FTRL 算法
 draft: false
@@ -19,7 +19,7 @@ tags:
 
 最近在看在线学习（Online Learning）相关的东西，这篇主要参考 Google 2013 年的论文 [Ad Click Prediction: a View from the Trenches](https://doi.org/10.1145/2487575.2488200)，其给出了一份 Follow the Regularized Leader (FTRL) 的工程实现。
 
-不过我的应用场景和 Google 还是差挺多的，但在考虑调整算法之前还是先看一下最近的研究进展比较好。此外查阅文档时发现 pytorch 没有 FTRL 实现，就打算自己写一份，顺便也讲一下构建 pytorch 模块（不单指 torch.nn.Module）时的一些注意点。
+不过我的应用场景和 Google 还是差挺多的，但在考虑调整算法之前还是先看一下最近的研究进展比较好。此外查阅文档时发现 PyTorch 没有 FTRL 实现，就打算自己写一份，顺便也讲一下构建 PyTorch 模块（不单指 torch.nn.Module）时的一些注意点。
 
 ## 在线学习
 
@@ -129,36 +129,33 @@ $$
 $$
 这里的 $\eta$ 更符合对优化器指定学习率的习惯，$\alpha$ 则可以控制动态调整的幅度。
 
-## pytorch 实现
+## PyTorch 实现
 
-首先要明确一点，FTRL 的本质是优化器而不是模型，因此要实现 ```torch.optim.Optimizer```而非 ```torch.nn.Module```。实现的核心是```torch.optim.Optimizer.step()```方法，类似```torch.nn.Module.forward()```。这里只放核心代码，完整代码后续会拉一个git仓库。
+首先要明确一点，FTRL 的本质是优化器而不是模型，因此要实现 ```torch.optim.Optimizer```而非 ```torch.nn.Module```。实现的核心是```torch.optim.Optimizer.step()```方法，类似```torch.nn.Module.forward()```。这里只放核心代码，完整代码参考 [随附仓库](https://github.com/ppq1024/FTRL)。
 
 ```python
 def ftrl(
-    params: List[Tensor],
-    grads: List[Tensor],
-    squre_g_buffer: List[Tensor],
-    z_buffer: List[Tensor],
-    eta_buffer: List[Tensor],
+    params: list[Tensor],
+    grads: list[Tensor],
+    n_buffer: list[Tensor],
+    z_buffer: list[Tensor],
     *,
     lr: float,
     alpha: float,
     sparse: float,
     weight_decay: float,
+    maximize: bool,
 ):
     for i, param in enumerate(params):
-        grad = grads[i]
-        squre_grad_sum = squre_g_buffer[i]
+        grad = grads[i] if not maximize else -grads[i]
+        n = n_buffer[i]
         z = z_buffer[i]
-        lr_old = eta_buffer[i]
-        squre_grad_sum.addcmul_(grad, grad, value=1)
-        lr_new = lr / (1 + alpha * torch.sqrt(squre_grad_sum))
-        sigma = 1 / lr_new - ((1 / lr_old) if lr_old.sum() > 0 else 0)
-        lr_old.set_(lr_new)
+        eta_old = (torch.sqrt(n) * alpha + 1) / lr if n.sum() > 0 else 0
+        n.addcmul_(grad, grad, value=1)
+        eta_new = (torch.sqrt(n) * alpha + 1) / lr
+        sigma = eta_new - eta_old
         z.add_(grad).addcmul_(sigma, param, value=-1)
-        param.set_(-torch.nn.functional.softshrink(z, sparse) * lr_new / (1 + weight_decay * lr_new))
-
-
+        param.set_(-torch.nn.functional.softshrink(z, sparse) / (eta_new + weight_decay))
 ```
 
-简单测试一下可以正常收敛，优化器写起来比 Module 麻烦多了，之后单独写一篇来讲吧。
+仓库里还有一份 FTRLAdam 实现，用 $\hat{\boldsymbol{m}}_t / (\sqrt{\hat{\boldsymbol{v}}_t} + \epsilon)$ 和 $\hat{\boldsymbol{v}}_t$ 代替 $\boldsymbol{g}_t$ 和 $\boldsymbol{g}_t^2$。
